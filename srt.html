@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- لتحسين الدقة على الشاشات عالية الكثافة -->
+    <meta name="theme-color" content="#000000">
+    <title>قناتان مباشرتان – @sinfjjfxj & @slui_o99</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #ff2a5a;
+            --primary-cyan: #00e5ff;
+            --primary-purple: #b967ff;
+            --card-bg: rgba(20, 18, 34, 0.75);
+            --text-light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            color: var(--text-light);
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            /* تحسين وضوح النصوص */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* الكارت الرئيسي مع إطار لامع دوار */
+        .dual-card {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            padding: 5px;
+            border-radius: 30px;
+            overflow: hidden;
+            /* لا خلفية هنا لأن الإطار سيكون في الطبقة التالية */
+        }
+
+        /* الإطار الافتري الدوار (الطرف اللامع) */
+        .dual-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg,
+                var(--primary-red),
+                var(--primary-cyan),
+                var(--primary-purple),
+                var(--primary-red),
+                var(--primary-cyan)
+            );
+            background-size: 400% 400%;
+            z-index: -1;
+            border-radius: 32px;
+            animation: glowingBorder 8s ease infinite;
+            filter: blur(2px);
+            opacity: 0.9;
+        }
+
+        @keyframes glowingBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .inner-content {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(100, 80, 180, 0.25);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--primary-cyan);
+            text-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 25px;
+        }
+
+        .channel-box {
+            background: rgba(30, 25, 50, 0.7);
+            border-radius: 20px;
+            padding: 22px;
+            text-align: center;
+            border: 1px solid rgba(100, 80, 200, 0.35);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .channel-box:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3);
+        }
+
+        .chanImg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-red);
+            object-fit: cover;
+            margin-bottom: 16px;
+            box-shadow: 0 0 18px rgba(255, 42, 90, 0.7);
+            transition: all 0.45s ease;
+        }
+
+        .channel-box:hover .chanImg {
+            border-color: var(--primary-cyan);
+            transform: scale(1.08);
+        }
+
+        .title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin: 8px 0;
+            color: white;
+            line-height: 1.35;
+        }
+
+        .username {
+            color: var(--primary-purple);
+            text-decoration: none;
+            font-size: 1.05rem;
+            opacity: 0.95;
+            display: block;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .members-bar {
+            background: rgba(10, 8, 25, 0.75);
+            padding: 14px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border: 1px solid rgba(120, 90, 220, 0.45);
+        }
+
+        .count {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(185, 103, 255, 0.4);
+            font-family: 'Courier New', monospace;
+        }
+
+        .ayah-card {
+            background: rgba(25, 15, 25, 0.85);
+            border-radius: 20px;
+            padding: 24px;
+            margin: 22px 0;
+            text-align: center;
+            border: 1px solid rgba(200, 50, 80, 0.45);
+            box-shadow: 0 0 22px rgba(255, 40, 80, 0.3);
+        }
+
+        .ayah-text {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--primary-red);
+            text-shadow: 
+                0 0 12px rgba(255, 42, 90, 0.8),
+                0 0 24px rgba(255, 42, 90, 0.6),
+                0 0 36px rgba(255, 42, 90, 0.4);
+            direction: rtl;
+            display: block;
+        }
+
+        .countdown-title {
+            text-align: center;
+            margin: 18px 0 22px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            text-shadow: 0 0 12px rgba(255, 42, 90, 0.5);
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .unit {
+            background: rgba(15, 12, 35, 0.85);
+            padding: 16px 8px;
+            border-radius: 14px;
+            text-align: center;
+            border: 1px solid rgba(100, 80, 180, 0.5);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .num {
+            display: block;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: white;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 14px var(--primary-cyan);
+            line-height: 1.1;
+        }
+
+        .label {
+            font-size: 0.85rem;
+            color: #ccc;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 500px) {
+            .ayah-text { font-size: 1.7rem; padding: 0 8px; }
+            .num { font-size: 1.6rem; }
+            .title { font-size: 1.25rem; }
+            .count { font-size: 1.45rem; }
+            .page-title { font-size: 1.45rem; }
+            .inner-content { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dual-card">
+        <div class="inner-content">
+            <h1 class="page-title">بث مباشر من قناتين</h1>
+
+            <div class="channels-grid">
+                <div class="channel-box">
+                    <img class="chanImg" id="img1" alt="شعار sinfjjfxj" style="display:none;">
+                    <div class="title" id="title1">جاري التحميل...</div>
+                    <a href="https://t.me/sinfjjfxj" class="username" target="_blank">@sinfjjfxj</a>
+                    <div class="members-bar">
+                        <span class="count" id="count1">—</span>
+                    </div>
+                </div>
+
+                <div class="channel-box">
+                    <img class="chanImg" id="img2" alt="شعار slui_o99" style="display:none;">
+                    <div class="title" id="title2">جاري التحميل...</div>
+                    <a href="https://t.me/slui_o99" class="username" target="_blank">@slui_o99</a>
+                    <div class="members-bar">
+                        <span class="count" id="count2">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ayah-card">
+                <span class="ayah-text">﴿فَذَكِّرْ إِن نَّفَعَتِ الذِّكْرَىٰ﴾</span>
+            </div>
+
+            <div class="countdown-title">⏰ حتى 20 يناير 2026</div>
+            <div class="timer-grid">
+                <div class="unit"><span class="num" id="days">00</span><span class="label">يوم</span></div>
+                <div class="unit"><span class="num" id="hours">00</span><span class="label">ساعة</span></div>
+                <div class="unit"><span class="num" id="mins">00</span><span class="label">دقيقة</span></div>
+                <div class="unit"><span class="num" id="secs">00</span><span class="label">ثانية</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN = '8243062971:AAG8WumCLGiMkKqvAKnUfjMG83xilMocBn8';
+        const CHANNELS = [
+            { username: '@sinfjjfxj', titleEl: 'title1', countEl: 'count1', imgEl: 'img1' },
+            { username: '@slui_o99', titleEl: 'title2', countEl: 'count2', imgEl: 'img2' }
+        ];
+
+        function padZero(num) {
+            return num.toString().padStart(2, '0');
+        }
+
+        async function fetchChannelData(channel) {
+            try {
+                const chatRes = await fetch(`https://api.telegram.org/bot${TOKEN}/getChat?chat_id=${channel.username}`);
+                const chatData = await chatRes.json();
+
+                if (chatData.ok) {
+                    document.getElementById(channel.titleEl).textContent = chatData.result.title || channel.username;
+
+                    if (chatData.result.photo?.big_file_id) {
+                        const fileRes = await fetch(`https://api.telegram.org/bot${TOKEN}/getFile?file_id=${chatData.result.photo.big_file_id}`);
+                        const fileData = await fileRes.json();
+                        if (fileData.ok) {
+                            const imgUrl = `https://api.telegram.org/file/bot${TOKEN}/${fileData.result.file_path}`;
+                            const img = document.getElementById(channel.imgEl);
+                            img.src = imgUrl;
+                            img.style.display = 'inline-block';
+                        }
+                    }
+                }
+
+                const countRes = await fetch(`https://api.telegram.org/bot${TOKEN}/getChatMembersCount?chat_id=${channel.username}`);
+                const countData = await countRes.json();
+                if (countData.ok) {
+                    const formatted = new Intl.NumberFormat('ar-EG').format(countData.result);
+                    document.getElementById(channel.countEl).textContent = formatted;
+                }
+            } catch (err) {
+                document.getElementById(channel.titleEl).textContent = "❌ خطأ";
+                document.getElementById(channel.countEl).textContent = "—";
+                console.error(`فشل تحميل ${channel.username}:`, err);
+            }
+        }
+
+        CHANNELS.forEach(fetchChannelData);
+        setInterval(() => CHANNELS.forEach(fetchChannelData), 15000);
+
+        const targetDate = new Date("January 20, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const gap = targetDate - now;
+            if (gap > 0) {
+                const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((gap % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = padZero(days);
+                document.getElementById('hours').textContent = padZero(hours);
+                document.getElementById('mins').textContent = padZero(mins);
+                document.getElementById('secs').textContent = padZero(secs);
+            } else {
+                ['days', 'hours', 'mins', 'secs'].forEach(id => document.getElementById(id).textContent = '00');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

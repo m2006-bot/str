@@ -12,6 +12,7 @@
             --primary-cyan: #00e5ff;
             --primary-purple: #b967ff;
             --primary-green: #00ff9d;
+            --primary-gold: #ffcc33;
             --card-bg: rgba(20, 18, 34, 0.75);
             --text-light: #ffffff;
         }
@@ -39,7 +40,7 @@
         .dual-card {
             position: relative;
             width: 100%;
-            max-width: 700px;
+            max-width: 750px;
             padding: 5px;
             border-radius: 30px;
             overflow: hidden;
@@ -189,6 +190,100 @@
             box-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
         }
 
+        /* === كرت التوحيد === */
+        .tauhid-card {
+            background: linear-gradient(135deg, rgba(20, 10, 40, 0.9), rgba(40, 10, 30, 0.9));
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid var(--primary-gold);
+            box-shadow: 0 0 20px rgba(255, 204, 51, 0.3);
+        }
+
+        .tauhid-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            color: var(--primary-gold);
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(255, 204, 51, 0.6);
+            line-height: 1.6;
+            direction: rtl;
+        }
+
+        .tauhid-explanation {
+            color: #ddd;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .tauhid-witness {
+            color: var(--primary-cyan);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        /* === كرت الجدول الدراسي === */
+        .schedule-big-card {
+            background: rgba(30, 20, 50, 0.5);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 1px solid rgba(185, 103, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .schedule-big-card h2 {
+            text-align: center;
+            color: var(--primary-purple);
+            margin-bottom: 15px;
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+        }
+
+        .day-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .day-name {
+            display: block;
+            color: var(--primary-cyan);
+            font-weight: 800;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+            font-size: 1.1rem;
+        }
+
+        .day-content {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            background: rgba(0, 255, 157, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            font-size: 0.85rem;
+        }
+
+        /* === الكروت الأصلية === */
         .session-card,
         .semester-card,
         .rules-card {
@@ -200,8 +295,12 @@
             box-shadow: 0 0 22px rgba(255, 40, 80, 0.3);
         }
 
-        .semester-card {
+        .session-card {
             border: 1px solid rgba(200, 50, 80, 0.45);
+        }
+
+        .semester-card {
+            border: 1px solid rgba(0, 229, 255, 0.5);
             padding: 24px 20px;
         }
 
@@ -296,7 +395,7 @@
 
         .status {
             font-size: 1.35rem;
-            font-weight: 70;
+            font-weight: 700;
             margin-top: 12px;
             padding: 10px;
             border-radius: 12px;
@@ -338,68 +437,32 @@
         }
 
         @media (max-width: 500px) {
-            .inner-content {
-                padding: 22px 14px;
-            }
-            .page-title {
-                font-size: 1.45rem;
-            }
-            .channels-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+            .inner-content { padding: 22px 14px; }
+            .page-title { font-size: 1.45rem; }
+            .channels-grid { grid-template-columns: 1fr; gap: 20px; }
             .title { font-size: 1.25rem; }
             .count { font-size: 1.4rem; }
-            .join-btn {
-                padding: 9px 20px;
-                font-size: 1rem;
-            }
-            .semester-title,
-            .session-title,
-            .rules-title {
-                font-size: 1.25rem;
-            }
-            .semester-time {
-                font-size: 1.25rem;
-            }
-            .ayah-text {
-                font-size: 1.5rem;
-                padding: 0 8px;
-                margin: 14px 0;
-            }
-            .num {
-                font-size: 1.4rem;
-            }
-            .label {
-                font-size: 0.7rem;
-            }
-            .timer-grid {
-                gap: 8px;
-            }
-            .unit {
-                padding: 10px 2px;
-            }
-            .rules-list {
-                font-size: 0.95rem;
-                padding: 0 12px;
-            }
-            .rules-list li::before {
-                font-size: 1.4rem;
-                top: -2px;
-            }
+            .join-btn { padding: 9px 20px; font-size: 1rem; }
+            .semester-title, .session-title, .rules-title { font-size: 1.25rem; }
+            .semester-time { font-size: 1.25rem; }
+            .ayah-text { font-size: 1.5rem; padding: 0 8px; margin: 14px 0; }
+            .num { font-size: 1.4rem; }
+            .label { font-size: 0.7rem; }
+            .timer-grid { gap: 8px; }
+            .unit { padding: 10px 2px; }
+            .rules-list { font-size: 0.95rem; padding: 0 12px; }
+            .rules-list li::before { font-size: 1.4rem; top: -2px; }
+            .days-grid { grid-template-columns: repeat(2, 1fr); }
+            .tauhid-text { font-size: 1.4rem; }
+            .tauhid-explanation { font-size: 1rem; }
+            .schedule-big-card h2 { font-size: 1.25rem; }
         }
 
         @media (max-width: 360px) {
-            .ayah-text {
-                font-size: 1.4rem;
-                line-height: 1.4;
-            }
-            .num {
-                font-size: 1.3rem;
-            }
-            .semester-time {
-                font-size: 1.15rem;
-            }
+            .ayah-text { font-size: 1.4rem; line-height: 1.4; }
+            .num { font-size: 1.3rem; }
+            .semester-time { font-size: 1.15rem; }
+            .tauhid-text { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -431,11 +494,43 @@
                 </div>
             </div>
 
-            <!-- كرت السّشن اليوم -->
+            <!-- كرت التوحيد المحدّث -->
+            <div class="tauhid-card">
+                <div class="tauhid-text">﴿قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ﴾</div>
+                <div class="tauhid-explanation">
+                    الله سبحانه وتعالى <strong>أحدٌ صمد</strong>، لم يلد ولم يُولد، وليس كمثله شيء — <strong>وهو الواحد الأحد</strong>.
+                </div>
+                <div class="tauhid-witness">اللهم بلغت، اللهم فاشهد.</div>
+            </div>
+
+            <!-- كرت الجدول الدراسي -->
+            <div class="schedule-big-card">
+                <h2>الخطة الدراسية الأسبوعية</h2>
+                <div class="days-grid">
+                    <div class="day-box"><span class="day-name">الأحد</span><div class="day-content">فيزياء(2), أحياء(2)<br>إنكليزي(1), إسلامية(1)</div></div>
+                    <div class="day-box"><span class="day-name">الاثنين</span><div class="day-content">رياضيات(2), كيمياء(2)<br>قواعد(1), أدب(ورقة)</div></div>
+                    <div class="day-box"><span class="day-name">الثلاثاء</span><div class="day-content">كيمياء(2), أحياء(2)<br>قواعد(1), أدب(ورقة)</div></div>
+                    <div class="day-box"><span class="day-name">الأربعاء</span><div class="day-content">فيزياء(2), رياضيات(2)<br>إنكليزي(2), إسلامية(1)</div></div>
+                    <div class="day-box"><span class="day-name">الخميس</span><div class="day-content">كيمياء(2), قواعد(2)<br>إنكليزي(1), أدب(ورقة)</div></div>
+                    <div class="day-box"><span class="day-name">الجمعة</span><div class="day-content">فيزياء(2), أحياء(2)<br>رياضيات(1), إسلامية(1)</div></div>
+                    <div class="day-box"><span class="day-name">السبت</span><div class="day-content">إنكليزي(2), قواعد(2)<br>رياضيات(1), فيزياء(1), أدب</div></div>
+                </div>
+                <div class="summary-grid">
+                    <div style="grid-column: 1/3; text-align:center; color:var(--primary-green); font-weight:800; margin-bottom:5px; border-bottom:1px solid rgba(0,255,157,0.2);">المحصلة الأسبوعية</div>
+                    <div>فيزياء: 6 | رياضيات: 6</div>
+                    <div>كيمياء: 6 | أحياء: 6</div>
+                    <div>قواعد: 6 | إنكليزي: 6</div>
+                    <div>إسلامية: 3 | أدب: 5 أوراق</div>
+                </div>
+                <div style="margin-top:15px; text-align:center; font-size:0.85rem; color:var(--primary-gold);">
+                    ⏰ الاستيقاظ: 7:00 ص | 💤 النوم: 11:30 م
+                </div>
+            </div>
+
+            <!-- السّشن -->
             <div class="session-card">
                 <div class="session-title">السّشن الدراسي القادم</div>
                 <div class="session-time" id="session-time">جاري التحميل...</div>
-
                 <div class="countdown-title" id="countdown-title">—</div>
                 <div class="timer-grid">
                     <div class="unit"><span class="num" id="days">00</span><span class="label">يوم</span></div>
@@ -443,11 +538,10 @@
                     <div class="unit"><span class="num" id="mins">00</span><span class="label">دقيقة</span></div>
                     <div class="unit"><span class="num" id="secs">00</span><span class="label">ثانية</span></div>
                 </div>
-
                 <div class="status" id="session-status">—</div>
             </div>
 
-            <!-- كرت نصف السنة + آية -->
+            <!-- عدّ نصف السنة -->
             <div class="semester-card">
                 <div class="semester-title">العدّ التنازلي لنهاية النصف الأول من العام الدراسي</div>
                 <div class="semester-time">حتى 20 يناير 2026</div>
@@ -461,7 +555,7 @@
                 </div>
             </div>
 
-            <!-- كرت التعليمات -->
+            <!-- التعليمات -->
             <div class="rules-card">
                 <div class="rules-title">تعليمات كروب الدردشة</div>
                 <ul class="rules-list">

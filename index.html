@@ -224,7 +224,7 @@
             font-size: 1.1rem;
         }
 
-        /* === كرت الجدول الدراسي === */
+        /* === كرت جدول التراكمات === */
         .schedule-big-card {
             background: rgba(30, 20, 50, 0.5);
             border-radius: 20px;
@@ -269,6 +269,8 @@
             font-size: 0.8rem;
             line-height: 1.6;
             color: #ddd;
+            text-align: right;
+            direction: rtl;
         }
 
         .summary-grid {
@@ -283,7 +285,7 @@
             font-size: 0.85rem;
         }
 
-        /* === الكروت الأصلية === */
+        /* === باقي الكروت === */
         .session-card,
         .semester-card,
         .rules-card {
@@ -456,6 +458,7 @@
             .tauhid-text { font-size: 1.4rem; }
             .tauhid-explanation { font-size: 1rem; }
             .schedule-big-card h2 { font-size: 1.25rem; }
+            .day-content { font-size: 0.75rem; }
         }
 
         @media (max-width: 360px) {
@@ -494,7 +497,7 @@
                 </div>
             </div>
 
-            <!-- كرت التوحيد المحدّث -->
+            <!-- كرت التوحيد -->
             <div class="tauhid-card">
                 <div class="tauhid-text">﴿قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ﴾</div>
                 <div class="tauhid-explanation">
@@ -503,24 +506,81 @@
                 <div class="tauhid-witness">اللهم بلغت، اللهم فاشهد.</div>
             </div>
 
-            <!-- كرت الجدول الدراسي -->
+            <!-- جدول التراكمات الأسبوعي -->
             <div class="schedule-big-card">
-                <h2>الخطة الدراسية الأسبوعية</h2>
+                <h2>جدول التراكمات الأسبوعي</h2>
                 <div class="days-grid">
-                    <div class="day-box"><span class="day-name">الأحد</span><div class="day-content">فيزياء(2), أحياء(2)<br>إنكليزي(1), إسلامية(1)</div></div>
-                    <div class="day-box"><span class="day-name">الاثنين</span><div class="day-content">رياضيات(2), كيمياء(2)<br>قواعد(1), أدب(ورقة)</div></div>
-                    <div class="day-box"><span class="day-name">الثلاثاء</span><div class="day-content">كيمياء(2), أحياء(2)<br>قواعد(1), أدب(ورقة)</div></div>
-                    <div class="day-box"><span class="day-name">الأربعاء</span><div class="day-content">فيزياء(2), رياضيات(2)<br>إنكليزي(2), إسلامية(1)</div></div>
-                    <div class="day-box"><span class="day-name">الخميس</span><div class="day-content">كيمياء(2), قواعد(2)<br>إنكليزي(1), أدب(ورقة)</div></div>
-                    <div class="day-box"><span class="day-name">الجمعة</span><div class="day-content">فيزياء(2), أحياء(2)<br>رياضيات(1), إسلامية(1)</div></div>
-                    <div class="day-box"><span class="day-name">السبت</span><div class="day-content">إنكليزي(2), قواعد(2)<br>رياضيات(1), فيزياء(1), أدب</div></div>
+                    <div class="day-box">
+                        <span class="day-name">الأحد</span>
+                        <div class="day-content">
+                            فيزياء(2), محاضرة<br>
+                            أحياء(2), محاضرة<br>
+                            إنكليزي(1), محاضرة<br>
+                            إسلامية(1), محاضرة
+                        </div>
+                    </div>
+                    <div class="day-box">
+                        <span class="day-name">الاثنين</span>
+                        <div class="day-content">
+                            رياضيات(2), محاضرة<br>
+                            كيمياء(2), محاضرة<br>
+                            قواعد(1), محاضرة<br>
+                            أدب, محاضرة
+                        </div>
+                    </div>
+                    <div class="day-box">
+                        <span class="day-name">الثلاثاء</span>
+                        <div class="day-content">
+                            كيمياء(2), محاضرة<br>
+                            أحياء(2), محاضرة<br>
+                            قواعد(1), محاضرة<br>
+                            أدب, محاضرة
+                        </div>
+                    </div>
+                    <div class="day-box">
+                        <span class="day-name">الأربعاء</span>
+                        <div class="day-content">
+                            فيزياء(2), محاضرة<br>
+                            رياضيات(2), محاضرة<br>
+                            إنكليزي(2), محاضرة<br>
+                            إسلامية(1), محاضرة
+                        </div>
+                    </div>
+                    <div class="day-box">
+                        <span class="day-name">الخميس</span>
+                        <div class="day-content">
+                            كيمياء(2), محاضرة<br>
+                            قواعد(2), محاضرة<br>
+                            إنكليزي(1), محاضرة<br>
+                            أدب, محاضرة
+                        </div>
+                    </div>
+                    <div class="day-box">
+                        <span class="day-name">الجمعة</span>
+                        <div class="day-content">
+                            فيزياء(2), محاضرة<br>
+                            أحياء(2), محاضرة<br>
+                            رياضيات(1), محاضرة<br>
+                            إسلامية(1), محاضرة
+                        </div>
+                    </div>
+                    <div class="day-box">
+                        <span class="day-name">السبت</span>
+                        <div class="day-content">
+                            إنكليزي(2), محاضرة<br>
+                            قواعد(2), محاضرة<br>
+                            رياضيات(1), محاضرة<br>
+                            فيزياء(1), محاضرة<br>
+                            أدب, محاضرة
+                        </div>
+                    </div>
                 </div>
                 <div class="summary-grid">
                     <div style="grid-column: 1/3; text-align:center; color:var(--primary-green); font-weight:800; margin-bottom:5px; border-bottom:1px solid rgba(0,255,157,0.2);">المحصلة الأسبوعية</div>
                     <div>فيزياء: 6 | رياضيات: 6</div>
                     <div>كيمياء: 6 | أحياء: 6</div>
                     <div>قواعد: 6 | إنكليزي: 6</div>
-                    <div>إسلامية: 3 | أدب: 5 أوراق</div>
+                    <div>إسلامية: 3 | أدب: 6</div>
                 </div>
                 <div style="margin-top:15px; text-align:center; font-size:0.85rem; color:var(--primary-gold);">
                     ⏰ الاستيقاظ: 7:00 ص | 💤 النوم: 11:30 م
@@ -566,6 +626,22 @@
                     <li>يمنع الدخول إلى الخاص منعًا باتًا.</li>
                 </ul>
             </div>
+
+            <!-- حقوق التصميم -->
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.9rem; color: var(--primary-gold);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.5 3.5H4.5C3.4 3.5 2.5 4.4 2.5 5.5V18.5C2.5 19.6 3.4 20.5 4.5 20.5H19.5C20.6 20.5 21.5 19.6 21.5 18.5V5.5C21.5 4.4 20.6 3.5 19.5 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.5 12H15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 8.5V15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    حقوق التصميم
+                </div>
+                <a href="https://t.me/wten099" target="_blank" style="color: var(--primary-gold); text-decoration: none; font-weight: 700; display: inline-block; margin-top: 4px;">
+                    وتين 
+                </a>
+            </div>
+
         </div>
     </div>
 

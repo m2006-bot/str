@@ -1,845 +1,201 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#000000">
-    <title>قناتان مباشرتان – @sinfjjfxj & @slui_o99</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-red: #ff2a5a;
-            --primary-cyan: #00e5ff;
-            --primary-purple: #b967ff;
-            --primary-green: #00ff9d;
-            --primary-gold: #ffcc33;
-            --card-bg: rgba(20, 18, 34, 0.75);
-            --text-light: #ffffff;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الجدول الذكي</title>
+  <style>
+    :root {
+      --ios-blue: #007aff;
+      --ios-green: #34c759;
+      --ios-orange: #ff9500;
+      --ios-bg: #f2f2f7;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            background: #000000;
-            color: var(--text-light);
-            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
+    body {
+      background: var(--ios-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      padding: 0 10px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
 
-        .dual-card {
-            position: relative;
-            width: 100%;
-            max-width: 750px;
-            padding: 5px;
-            border-radius: 30px;
-            overflow: hidden;
-        }
+    #topStatusBar {
+      height: 5px;
+      width: 100%;
+      background: #e5e5ea;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-radius: 0 0 4px 4px;
+      transition: background-color 0.5s ease;
+    }
 
-        .dual-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg,
-                var(--primary-red),
-                var(--primary-cyan),
-                var(--primary-purple),
-                var(--primary-red),
-                var(--primary-cyan)
-            );
-            background-size: 400% 400%;
-            z-index: -1;
-            border-radius: 32px;
-            animation: glowingBorder 8s ease infinite;
-            filter: blur(2px);
-            opacity: 0.9;
-        }
+    .time-now {
+      font-size: 12px;
+      color: #8e8e93;
+      text-align: center;
+      margin-top: 5px;
+    }
 
-        @keyframes glowingBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .header {
+      text-align: center;
+      margin: 4px 0;
+    }
 
-        .inner-content {
-            position: relative;
-            background: var(--card-bg);
-            border-radius: 28px;
-            padding: 28px 20px;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(100, 80, 180, 0.25);
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-            z-index: 2;
-        }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1c1c1e;
+    }
 
-        .page-title {
-            text-align: center;
-            font-size: 1.7rem;
-            font-weight: 800;
-            margin-bottom: 22px;
-            color: var(--primary-cyan);
-            text-shadow: 0 0 12px rgba(0, 229, 255, 0.6);
-        }
+    /* الكرت النحيف */
+    .session-card {
+      display: flex;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      height: 38px;
+      align-items: center;
+    }
 
-        .channels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 22px;
-            margin-bottom: 22px;
-        }
+    .color-strip {
+      width: 4px;
+      height: 100%;
+    }
 
-        .channel-box {
-            background: rgba(30, 25, 50, 0.7);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(100, 80, 200, 0.35);
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
-        }
+    .study-strip { background: var(--ios-blue); }
+    .break-strip { background: var(--ios-green); }
+    .special-strip { background: var(--ios-orange); }
+    .dinner-strip { background: #000; }
 
-        .channel-box:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3);
-        }
+    .session-info {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px;
+    }
 
-        .chanImg {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-red);
-            object-fit: cover;
-            margin-bottom: 14px;
-            box-shadow: 0 0 18px rgba(255, 42, 90, 0.7);
-            transition: all 0.45s ease;
-        }
+    .time-range {
+      font-weight: 600;
+      font-size: 11px;
+      color: #3a3a3c;
+      min-width: 80px;
+      text-align: left;
+    }
 
-        .channel-box:hover .chanImg {
-            border-color: var(--primary-cyan);
-            transform: scale(1.08);
-        }
+    .session-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
 
-        .title {
-            font-size: 1.35rem;
-            font-weight: 800;
-            margin: 8px 0;
-            color: white;
-            line-height: 1.3;
-        }
+    /* تمييز الجلسة الحالية */
+    .session-card.current {
+      background: #fff;
+      border: 1px solid rgba(0,122,255,0.4);
+      box-shadow: 0 2px 8px rgba(0,122,255,0.1);
+    }
 
-        .username {
-            color: var(--primary-purple);
-            text-decoration: none;
-            font-size: 1rem;
-            opacity: 0.95;
-            display: block;
-            margin-bottom: 14px;
-            font-weight: 600;
-        }
+    .session-card.current .session-title {
+      color: var(--ios-blue);
+      font-weight: 700;
+    }
 
-        .members-bar {
-            background: rgba(10, 8, 25, 0.75);
-            padding: 12px;
-            border-radius: 12px;
-            margin-top: 8px;
-            margin-bottom: 14px;
-            border: 1px solid rgba(120, 90, 220, 0.45);
-        }
-
-        .count {
-            font-size: 1.55rem;
-            font-weight: 800;
-            background: linear-gradient(to right, var(--primary-cyan), var(--primary-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(185, 103, 255, 0.4);
-            font-family: 'Courier New', monospace;
-        }
-
-        .join-btn {
-            display: inline-block;
-            padding: 9px 22px;
-            background: rgba(0, 229, 255, 0.15);
-            color: var(--primary-cyan);
-            font-weight: 800;
-            font-size: 1.05rem;
-            text-decoration: none;
-            border-radius: 50px;
-            border: 1px solid var(--primary-cyan);
-            transition: all 0.3s ease;
-            text-shadow: 0 0 8px rgba(0, 229, 255, 0.7);
-            backdrop-filter: blur(4px);
-        }
-
-        .join-btn:hover {
-            background: rgba(0, 229, 255, 0.3);
-            transform: scale(1.05);
-            box-shadow: 0 0 16px rgba(0, 229, 255, 0.6);
-        }
-
-        /* === كرت التوحيد === */
-        .tauhid-card {
-            background: linear-gradient(135deg, rgba(20, 10, 40, 0.9), rgba(40, 10, 30, 0.9));
-            border-radius: 20px;
-            padding: 25px;
-            margin: 20px 0;
-            text-align: center;
-            border: 1px solid var(--primary-gold);
-            box-shadow: 0 0 20px rgba(255, 204, 51, 0.3);
-        }
-
-        .tauhid-text {
-            font-family: 'Amiri', serif;
-            font-size: 1.6rem;
-            color: var(--primary-gold);
-            margin-bottom: 12px;
-            text-shadow: 0 0 10px rgba(255, 204, 51, 0.6);
-            line-height: 1.6;
-            direction: rtl;
-        }
-
-        .tauhid-explanation {
-            color: #ddd;
-            font-size: 1.05rem;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .tauhid-witness {
-            color: var(--primary-cyan);
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
-
-        /* === كرت جدول التراكمات === */
-        .schedule-big-card {
-            background: rgba(30, 20, 50, 0.5);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 25px 0;
-            border: 1px solid rgba(185, 103, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .schedule-big-card h2 {
-            text-align: center;
-            color: var(--primary-purple);
-            margin-bottom: 15px;
-            font-weight: 800;
-            font-size: 1.4rem;
-        }
-
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 10px;
-        }
-
-        .day-box {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-
-        .day-name {
-            display: block;
-            color: var(--primary-cyan);
-            font-weight: 800;
-            margin-bottom: 8px;
-            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
-            font-size: 1.1rem;
-        }
-
-        .day-content {
-            font-size: 0.8rem;
-            line-height: 1.6;
-            color: #ddd;
-            text-align: right;
-            direction: rtl;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            background: rgba(0, 255, 157, 0.05);
-            padding: 15px;
-            border-radius: 15px;
-            margin-top: 15px;
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            font-size: 0.85rem;
-        }
-
-        /* === باقي الكروت === */
-        .session-card,
-        .semester-card,
-        .rules-card {
-            background: rgba(25, 15, 25, 0.85);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 0 22px rgba(255, 40, 80, 0.3);
-        }
-
-        .session-card {
-            border: 1px solid rgba(200, 50, 80, 0.45);
-        }
-
-        .semester-card {
-            border: 1px solid rgba(0, 229, 255, 0.5);
-            padding: 24px 20px;
-        }
-
-        .rules-card {
-            background: rgba(10, 30, 20, 0.85);
-            border: 1px solid rgba(0, 255, 157, 0.5);
-            box-shadow: 0 0 22px rgba(0, 255, 157, 0.3);
-        }
-
-        .session-title,
-        .semester-title,
-        .rules-title {
-            font-size: 1.3rem;
-            font-weight: 800;
-            margin-bottom: 14px;
-        }
-
-        .session-title {
-            color: var(--primary-red);
-            text-shadow: 0 0 10px rgba(255, 42, 90, 0.6);
-        }
-
-        .semester-title {
-            color: var(--primary-cyan);
-            text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
-        }
-
-        .rules-title {
-            color: var(--primary-green);
-            text-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
-        }
-
-        .semester-time {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: white;
-            margin: 10px 0;
-        }
-
-        .ayah-text {
-            font-family: 'Amiri', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            line-height: 1.5;
-            color: var(--primary-red);
-            text-shadow: 
-                0 0 10px rgba(255, 42, 90, 0.7),
-                0 0 20px rgba(255, 42, 90, 0.5);
-            direction: rtl;
-            margin: 16px 0;
-            padding: 0 10px;
-        }
-
-        .countdown-title {
-            margin: 16px 0 12px;
-            font-size: 1.2rem;
-            color: var(--primary-cyan);
-        }
-
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            direction: ltr;
-        }
-
-        .unit {
-            background: rgba(15, 12, 35, 0.85);
-            padding: 12px 4px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid rgba(100, 80, 180, 0.5);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .num {
-            display: block;
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: white;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 12px var(--primary-cyan);
-            line-height: 1.1;
-        }
-
-        .label {
-            font-size: 0.75rem;
-            color: #ccc;
-            margin-top: 4px;
-            font-weight: 600;
-        }
-
-        .status {
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-top: 12px;
-            padding: 10px;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .active {
-            color: var(--primary-green);
-            text-shadow: 0 0 10px var(--primary-green);
-        }
-
-        .ended {
-            color: #ff6b6b;
-        }
-
-        .rules-list {
-            text-align: right;
-            padding: 0 18px;
-            margin-top: 12px;
-            font-size: 1rem;
-            line-height: 1.75;
-        }
-
-        .rules-list li {
-            margin-bottom: 10px;
-            list-style: none;
-            position: relative;
-            padding-right: 20px;
-        }
-
-        .rules-list li::before {
-            content: "•";
-            color: var(--primary-green);
-            font-size: 1.7rem;
-            position: absolute;
-            right: 0;
-            top: -4px;
-            text-shadow: 0 0 6px rgba(0, 255, 157, 0.6);
-        }
-
-        @media (max-width: 500px) {
-            .inner-content { padding: 22px 14px; }
-            .page-title { font-size: 1.45rem; }
-            .channels-grid { grid-template-columns: 1fr; gap: 20px; }
-            .title { font-size: 1.25rem; }
-            .count { font-size: 1.4rem; }
-            .join-btn { padding: 9px 20px; font-size: 1rem; }
-            .semester-title, .session-title, .rules-title { font-size: 1.25rem; }
-            .semester-time { font-size: 1.25rem; }
-            .ayah-text { font-size: 1.5rem; padding: 0 8px; margin: 14px 0; }
-            .num { font-size: 1.4rem; }
-            .label { font-size: 0.7rem; }
-            .timer-grid { gap: 8px; }
-            .unit { padding: 10px 2px; }
-            .rules-list { font-size: 0.95rem; padding: 0 12px; }
-            .rules-list li::before { font-size: 1.4rem; top: -2px; }
-            .days-grid { grid-template-columns: repeat(2, 1fr); }
-            .tauhid-text { font-size: 1.4rem; }
-            .tauhid-explanation { font-size: 1rem; }
-            .schedule-big-card h2 { font-size: 1.25rem; }
-            .day-content { font-size: 0.75rem; }
-        }
-
-        @media (max-width: 360px) {
-            .ayah-text { font-size: 1.4rem; line-height: 1.4; }
-            .num { font-size: 1.3rem; }
-            .semester-time { font-size: 1.15rem; }
-            .tauhid-text { font-size: 1.3rem; }
-        }
-    </style>
+    .dinner-card { background: #1c1c1e; }
+    .dinner-card .time-range, .dinner-card .session-title { color: white; }
+  </style>
 </head>
 <body>
 
-    <div class="dual-card">
-        <div class="inner-content">
-            <h1 class="page-title">بث مباشر من قناتين</h1>
+  <div id="topStatusBar"></div>
+  <div class="time-now" id="nowText">الوقت الآن — --:--</div>
+  
+  <div class="header">
+    <h1>الخميس</h1>
+  </div>
 
-            <div class="channels-grid">
-                <div class="channel-box">
-                    <img class="chanImg" id="img1" alt="شعار sinfjjfxj" style="display:none;">
-                    <div class="title" id="title1">جاري التحميل...</div>
-                    <a href="https://t.me/sinfjjfxj" class="username" target="_blank">@sinfjjfxj</a>
-                    <div class="members-bar">
-                        <span class="count" id="count1">—</span>
-                    </div>
-                    <a href="https://t.me/sinfjjfxj" class="join-btn" target="_blank">انضمام</a>
-                </div>
+  <div class="session-card" data-start="11:00" data-end="11:40" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">11:00 - 11:40</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="11:40" data-end="11:48" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">11:40 - 11:48</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="11:48" data-end="12:28" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">11:48 - 12:28</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="12:28" data-end="12:30" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">12:28 - 12:30</div><div class="session-title">استراحة قصيرة</div></div></div>
+  <div class="session-card" data-start="12:30" data-end="13:30" data-type="special"><div class="color-strip special-strip"></div><div class="session-info"><div class="time-range">12:30 - 01:30</div><div class="session-title">غداء + راحة</div></div></div>
+  
+  <div class="session-card" data-start="13:30" data-end="14:10" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">01:30 - 02:10</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="14:10" data-end="14:18" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">02:10 - 02:18</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="14:18" data-end="14:58" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">02:18 - 02:58</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="14:58" data-end="15:06" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">02:58 - 03:06</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="15:06" data-end="15:46" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">03:06 - 03:46</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="15:46" data-end="15:54" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">03:46 - 03:54</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="15:54" data-end="16:34" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">03:54 - 04:34</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="16:34" data-end="16:42" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">04:34 - 04:42</div><div class="session-title">استراحة</div></div></div>
 
-                <div class="channel-box">
-                    <img class="chanImg" id="img2" alt="شعار slui_o99" style="display:none;">
-                    <div class="title" id="title2">جاري التحميل...</div>
-                    <a href="https://t.me/slui_o99" class="username" target="_blank">@slui_o99</a>
-                    <div class="members-bar">
-                        <span class="count" id="count2">—</span>
-                    </div>
-                    <a href="https://t.me/slui_o99" class="join-btn" target="_blank">انضمام</a>
-                </div>
-            </div>
+  <div class="session-card dinner-card" data-start="19:00" data-end="20:30" data-type="dinner"><div class="color-strip dinner-strip"></div><div class="session-info"><div class="time-range">07:00 - 08:30</div><div class="session-title">عشاء + راحة</div></div></div>
+  <div class="session-card" data-start="20:30" data-end="21:10" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">08:30 - 09:10</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="21:10" data-end="21:18" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">09:10 - 09:18</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="21:18" data-end="21:58" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">09:18 - 09:58</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="21:58" data-end="22:06" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">09:58 - 10:06</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="22:06" data-end="22:46" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">10:06 - 10:46</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="22:46" data-end="22:54" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">10:46 - 10:54</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="22:54" data-end="23:34" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">10:54 - 11:34</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="23:34" data-end="23:42" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">11:34 - 11:42</div><div class="session-title">استراحة</div></div></div>
 
-            <!-- كرت التوحيد -->
-            <div class="tauhid-card">
-                <div class="tauhid-text">﴿قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ﴾</div>
-                <div class="tauhid-explanation">
-                    الله سبحانه وتعالى <strong>أحدٌ صمد</strong>، لم يلد ولم يُولد، وليس كمثله شيء — <strong>وهو الواحد الأحد</strong>.
-                </div>
-                <div class="tauhid-witness">اللهم بلغت، اللهم فاشهد.</div>
-            </div>
+  <div class="session-card" data-start="23:42" data-end="00:22" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">11:42 - 12:22</div><div class="session-title">دراسة</div></div></div>
+  <div class="session-card" data-start="00:22" data-end="00:30" data-type="break"><div class="color-strip break-strip"></div><div class="session-info"><div class="time-range">12:22 - 12:30</div><div class="session-title">استراحة</div></div></div>
+  <div class="session-card" data-start="00:30" data-end="01:00" data-type="study"><div class="color-strip study-strip"></div><div class="session-info"><div class="time-range">12:30 - 01:00</div><div class="session-title">آخر جلسة</div></div></div>
 
-            <!-- جدول التراكمات الأسبوعي -->
-            <div class="schedule-big-card">
-                <h2>جدول التراكمات الأسبوعي</h2>
-                <div class="days-grid">
-                    <div class="day-box">
-                        <span class="day-name">الأحد</span>
-                        <div class="day-content">
-                            فيزياء(2), محاضرة<br>
-                            أحياء(2), محاضرة<br>
-                            إنكليزي(1), محاضرة<br>
-                            إسلامية(1), محاضرة
-                        </div>
-                    </div>
-                    <div class="day-box">
-                        <span class="day-name">الاثنين</span>
-                        <div class="day-content">
-                            رياضيات(2), محاضرة<br>
-                            كيمياء(2), محاضرة<br>
-                            قواعد(1), محاضرة<br>
-                            أدب, محاضرة
-                        </div>
-                    </div>
-                    <div class="day-box">
-                        <span class="day-name">الثلاثاء</span>
-                        <div class="day-content">
-                            كيمياء(2), محاضرة<br>
-                            أحياء(2), محاضرة<br>
-                            قواعد(1), محاضرة<br>
-                            أدب, محاضرة
-                        </div>
-                    </div>
-                    <div class="day-box">
-                        <span class="day-name">الأربعاء</span>
-                        <div class="day-content">
-                            فيزياء(2), محاضرة<br>
-                            رياضيات(2), محاضرة<br>
-                            إنكليزي(2), محاضرة<br>
-                            إسلامية(1), محاضرة
-                        </div>
-                    </div>
-                    <div class="day-box">
-                        <span class="day-name">الخميس</span>
-                        <div class="day-content">
-                            كيمياء(2), محاضرة<br>
-                            قواعد(2), محاضرة<br>
-                            إنكليزي(1), محاضرة<br>
-                            أدب, محاضرة
-                        </div>
-                    </div>
-                    <div class="day-box">
-                        <span class="day-name">الجمعة</span>
-                        <div class="day-content">
-                            فيزياء(2), محاضرة<br>
-                            أحياء(2), محاضرة<br>
-                            رياضيات(1), محاضرة<br>
-                            إسلامية(1), محاضرة
-                        </div>
-                    </div>
-                    <div class="day-box">
-                        <span class="day-name">السبت</span>
-                        <div class="day-content">
-                            إنكليزي(2), محاضرة<br>
-                            قواعد(2), محاضرة<br>
-                            رياضيات(1), محاضرة<br>
-                            فيزياء(1), محاضرة<br>
-                            أدب, محاضرة
-                        </div>
-                    </div>
-                </div>
-                <div class="summary-grid">
-                    <div style="grid-column: 1/3; text-align:center; color:var(--primary-green); font-weight:800; margin-bottom:5px; border-bottom:1px solid rgba(0,255,157,0.2);">المحصلة الأسبوعية</div>
-                    <div>فيزياء: 6 | رياضيات: 6</div>
-                    <div>كيمياء: 6 | أحياء: 6</div>
-                    <div>قواعد: 6 | إنكليزي: 6</div>
-                    <div>إسلامية: 3 | أدب: 6</div>
-                </div>
-                <div style="margin-top:15px; text-align:center; font-size:0.85rem; color:var(--primary-gold);">
-                    ⏰ الاستيقاظ: 7:00 ص | 💤 النوم: 11:30 م
-                </div>
-            </div>
+  <script>
+    function toMinutes(time) {
+      const [h, m] = time.split(':').map(Number);
+      return h * 60 + m;
+    }
 
-            <!-- السّشن -->
-            <div class="session-card">
-                <div class="session-title">السّشن الدراسي القادم</div>
-                <div class="session-time" id="session-time">جاري التحميل...</div>
-                <div class="countdown-title" id="countdown-title">—</div>
-                <div class="timer-grid">
-                    <div class="unit"><span class="num" id="days">00</span><span class="label">يوم</span></div>
-                    <div class="unit"><span class="num" id="hours">00</span><span class="label">ساعة</span></div>
-                    <div class="unit"><span class="num" id="mins">00</span><span class="label">دقيقة</span></div>
-                    <div class="unit"><span class="num" id="secs">00</span><span class="label">ثانية</span></div>
-                </div>
-                <div class="status" id="session-status">—</div>
-            </div>
+    function updateTime() {
+      const now = new Date();
+      const currentMin = now.getHours() * 60 + now.getMinutes();
+      
+      // تحديث نص الوقت
+      document.getElementById("nowText").textContent = "الوقت الآن — " + 
+        now.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit", hour12: true });
 
-            <!-- عدّ نصف السنة -->
-            <div class="semester-card">
-                <div class="semester-title">العدّ التنازلي لنهاية النصف الأول من العام الدراسي</div>
-                <div class="semester-time">حتى 20 يناير 2026</div>
-                <div class="ayah-text">﴿فَذَكِّرْ إِن نَّفَعَتِ الذِّكْرَىٰ﴾</div>
-                <div class="countdown-title">الوقت المتبقي</div>
-                <div class="timer-grid">
-                    <div class="unit"><span class="num" id="sem-days">00</span><span class="label">يوم</span></div>
-                    <div class="unit"><span class="num" id="sem-hours">00</span><span class="label">ساعة</span></div>
-                    <div class="unit"><span class="num" id="sem-mins">00</span><span class="label">دقيقة</span></div>
-                    <div class="unit"><span class="num" id="sem-secs">00</span><span class="label">ثانية</span></div>
-                </div>
-            </div>
+      let currentType = "none";
 
-            <!-- التعليمات -->
-            <div class="rules-card">
-                <div class="rules-title">تعليمات كروب الدردشة</div>
-                <ul class="rules-list">
-                    <li>يمنع مشاركة أي ملفات أو إعادة توجيه الرسائل.</li>
-                    <li>الكروب يُفتح في وقت محدد يتم تحديده من قبل المشرفين فقط.</li>
-                    <li>يمنع استخدام أي أسلوب غير لائق أو مسيء.</li>
-                    <li>يمنع تكرار الرسائل بقصد استعجال الرد.</li>
-                    <li>يمنع الدخول إلى الخاص منعًا باتًا.</li>
-                </ul>
-            </div>
+      document.querySelectorAll('.session-card').forEach(card => {
+        card.classList.remove('current');
+        const startStr = card.getAttribute('data-start');
+        const endStr = card.getAttribute('data-end');
+        const type = card.getAttribute('data-type');
 
-            <!-- حقوق التصميم -->
-            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.9rem; color: var(--primary-gold);">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.5 3.5H4.5C3.4 3.5 2.5 4.4 2.5 5.5V18.5C2.5 19.6 3.4 20.5 4.5 20.5H19.5C20.6 20.5 21.5 19.6 21.5 18.5V5.5C21.5 4.4 20.6 3.5 19.5 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M8.5 12H15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 8.5V15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    حقوق التصميم
-                </div>
-                <a href="https://t.me/wten099" target="_blank" style="color: var(--primary-gold); text-decoration: none; font-weight: 700; display: inline-block; margin-top: 4px;">
-                    وتين 
-                </a>
-            </div>
+        let s = toMinutes(startStr);
+        let e = toMinutes(endStr);
+        let cur = currentMin;
 
-        </div>
-    </div>
+        // معالجة الوقت بعد منتصف الليل
+        if (e < s) e += 24 * 60; 
+        if (cur < 11 * 60) cur += 24 * 60; // إذا كنا في الساعات الأولى من الفجر، نعتبرها تابعة لجدول أمس
 
-    <script>
-        const TOKEN = '8243062971:AAG8WumCLGiMkKqvAKnUfjMG83xilMocBn8';
-        const CHANNELS = [
-            { username: '@sinfjjfxj', titleEl: 'title1', countEl: 'count1', imgEl: 'img1' },
-            { username: '@slui_o99', titleEl: 'title2', countEl: 'count2', imgEl: 'img2' }
-        ];
-
-        function to24Hour(time12h) {
-            const match = time12h.trim().match(/^(\d{1,2}):(\d{2})\s*([صبم])/);
-            if (!match) return null;
-            let [_, hoursStr, minutes, period] = match;
-            let hours = parseInt(hoursStr, 10);
-            const mins = parseInt(minutes, 10);
-            period = period.trim();
-            if (period === 'م') period = 'PM';
-            if (period === 'ص') period = 'AM';
-            if (period === 'AM' && hours === 12) hours = 0;
-            if (period === 'PM' && hours !== 12) hours += 12;
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        if (cur >= s && cur < e) {
+          card.classList.add('current');
+          currentType = type;
         }
+      });
 
-        function extractSessionTime(text) {
-            const regex = /(\d{1,2}:\d{2}\s*[صبم])\s*-\s*(\d{1,2}:\d{2}\s*[صبم])/;
-            const match = text?.match(regex);
-            if (!match) return null;
-            const start12 = match[1];
-            const end12 = match[2];
-            const start24 = to24Hour(start12);
-            const end24 = to24Hour(end12);
-            if (!start24 || !end24) return null;
-            return { start: start24, end: end24, original: `${start12} - ${end12}` };
-        }
+      // تحديث لون الشريط العلوي
+      const colors = { study: "#007aff", break: "#34c759", special: "#ff9500", dinner: "#000" };
+      document.getElementById("topStatusBar").style.backgroundColor = colors[currentType] || "#e5e5ea";
+    }
 
-        function parseTodayTime(time24Str) {
-            const [hours, minutes] = time24Str.split(':').map(Number);
-            const now = new Date();
-            return new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
-        }
-
-        function padZero(num) {
-            return num.toString().padStart(2, '0');
-        }
-
-        async function fetchSessionTime() {
-            try {
-                const res = await fetch(`https://api.telegram.org/bot${TOKEN}/getChat?chat_id=@hshsbsbsbgdg`);
-                const data = await res.json();
-                if (data.ok && data.result?.description) {
-                    const session = extractSessionTime(data.result.description);
-                    if (session) {
-                        document.getElementById('session-time').textContent = session.original;
-                        window.sessionStart = parseTodayTime(session.start);
-                        window.sessionEnd = parseTodayTime(session.end);
-                        return;
-                    }
-                }
-                document.getElementById('session-time').textContent = "لم يُحدد بعد";
-                document.getElementById('session-status').textContent = "لم يبدأ أي سشن حتى الآن";
-                document.getElementById('session-status').className = "status ended";
-                document.getElementById('countdown-title').textContent = "—";
-                window.sessionStart = null;
-                window.sessionEnd = null;
-            } catch (err) {
-                console.error("فشل جلب وقت السشن:", err);
-                document.getElementById('session-time').textContent = "خطأ في التحميل";
-                document.getElementById('session-status').textContent = "تعذر الاتصال";
-                document.getElementById('session-status').className = "status ended";
-                document.getElementById('countdown-title').textContent = "—";
-                window.sessionStart = null;
-                window.sessionEnd = null;
-            }
-        }
-
-        function updateCountdown() {
-            const now = new Date();
-            const statusEl = document.getElementById('session-status');
-            const titleEl = document.getElementById('countdown-title');
-
-            if (!window.sessionStart || !window.sessionEnd) {
-                ['days', 'hours', 'mins', 'secs'].forEach(id => document.getElementById(id).textContent = '00');
-                return;
-            }
-
-            const startTime = window.sessionStart.getTime();
-            const endTime = window.sessionEnd.getTime();
-            const nowTime = now.getTime();
-
-            if (nowTime < startTime) {
-                const gap = startTime - nowTime;
-                const days = Math.floor(gap / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((gap % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = padZero(days);
-                document.getElementById('hours').textContent = padZero(hours);
-                document.getElementById('mins').textContent = padZero(mins);
-                document.getElementById('secs').textContent = padZero(secs);
-
-                titleEl.textContent = "العدّ التنازلي لبدء السّشن";
-                statusEl.textContent = "لم يبدأ بعد";
-                statusEl.className = "status";
-            } else if (nowTime <= endTime) {
-                const gap = endTime - nowTime;
-                const days = Math.floor(gap / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((gap % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = padZero(days);
-                document.getElementById('hours').textContent = padZero(hours);
-                document.getElementById('mins').textContent = padZero(mins);
-                document.getElementById('secs').textContent = padZero(secs);
-
-                titleEl.textContent = "العدّ التنازلي لانتهاء السّشن";
-                statusEl.textContent = "السّشن قيد التنفيذ!";
-                statusEl.className = "status active";
-            } else {
-                ['days', 'hours', 'mins', 'secs'].forEach(id => document.getElementById(id).textContent = '00');
-                titleEl.textContent = "العدّ التنازلي لبدء السّشن";
-                statusEl.textContent = "السّشن انتهى ❌";
-                statusEl.className = "status ended";
-            }
-        }
-
-        function updateSemesterCountdown() {
-            const now = new Date().getTime();
-            const targetDate = new Date("January 20, 2026 00:00:00").getTime();
-            const gap = targetDate - now;
-
-            if (gap > 0) {
-                const days = Math.floor(gap / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((gap % (1000 * 60)) / 1000);
-
-                document.getElementById('sem-days').textContent = padZero(days);
-                document.getElementById('sem-hours').textContent = padZero(hours);
-                document.getElementById('sem-mins').textContent = padZero(mins);
-                document.getElementById('sem-secs').textContent = padZero(secs);
-            } else {
-                ['sem-days', 'sem-hours', 'sem-mins', 'sem-secs'].forEach(id => {
-                    document.getElementById(id).textContent = '00';
-                });
-            }
-        }
-
-        async function fetchChannelData(channel) {
-            try {
-                const chatRes = await fetch(`https://api.telegram.org/bot${TOKEN}/getChat?chat_id=${channel.username}`);
-                const chatData = await chatRes.json();
-
-                if (chatData.ok) {
-                    document.getElementById(channel.titleEl).textContent = 
-                        chatData.result.title || 
-                        chatData.result.first_name || 
-                        channel.username;
-
-                    if (chatData.result.photo?.big_file_id) {
-                        const fileRes = await fetch(`https://api.telegram.org/bot${TOKEN}/getFile?file_id=${chatData.result.photo.big_file_id}`);
-                        const fileData = await fileRes.json();
-                        if (fileData.ok) {
-                            const imgUrl = `https://api.telegram.org/file/bot${TOKEN}/${fileData.result.file_path}`;
-                            const img = document.getElementById(channel.imgEl);
-                            img.src = imgUrl;
-                            img.style.display = 'inline-block';
-                        }
-                    }
-                }
-
-                const countRes = await fetch(`https://api.telegram.org/bot${TOKEN}/getChatMembersCount?chat_id=${channel.username}`);
-                const countData = await countRes.json();
-                if (countData.ok) {
-                    const formatted = new Intl.NumberFormat('ar-EG').format(countData.result);
-                    document.getElementById(channel.countEl).textContent = formatted;
-                }
-            } catch (err) {
-                document.getElementById(channel.titleEl).textContent = "❌ خطأ";
-                document.getElementById(channel.countEl).textContent = "—";
-                console.error(`فشل تحميل ${channel.username}:`, err);
-            }
-        }
-
-        // التحميل الأولي
-        CHANNELS.forEach(fetchChannelData);
-        fetchSessionTime().then(() => {
-            setInterval(updateCountdown, 1000);
-        });
-
-        updateSemesterCountdown();
-        setInterval(updateSemesterCountdown, 1000);
-
-        // التحديث الدوري
-        setInterval(() => CHANNELS.forEach(fetchChannelData), 15000);
-        setInterval(fetchSessionTime, 30000);
-    </script>
+    updateTime();
+    setInterval(updateTime, 10000); // تحديث كل 10 ثوانٍ
+  </script>
 </body>
 </html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>iPhone Focus Pro</title>
+    <style>
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --bg-gradient: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%);
+            --text-primary: #1d1d1f;
+            --sheet-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-gradient: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
+                --text-primary: #ffffff;
+                --sheet-bg: rgba(30, 30, 34, 0.95);
+            }
+        }
+
+        body { height: 100vh; background: var(--bg-gradient); color: var(--text-primary); display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        .container { 
+            width: 100%; height: 100%; display: flex; flex-direction: column; 
+            justify-content: space-around; align-items: center; padding: 40px 20px; text-align: center; 
+        }
+
+        /* تصميم العبارة التحفيزية */
+        .quote-container {
+            max-width: 80%;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #quote-text {
+            font-size: 16px;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.7;
+            line-height: 1.5;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 0.7; transform: translateY(0); } }
+
+        .timer-display { font-size: clamp(80px, 22vw, 150px); font-weight: 200; letter-spacing: -4px; font-variant-numeric: tabular-nums; margin: 20px 0; }
+        
+        .controls { width: 100%; max-width: 450px; display: flex; justify-content: space-around; align-items: center; }
+        .btn { border: none; background: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: 0.2s; }
+        .btn:active { transform: scale(0.9); }
+        .circle { width: 75px; height: 75px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        svg { width: 30px; height: 30px; fill: white; }
+        
+        .green { background-color: #34c759; } .red { background-color: #ff3b30; } .gray { background-color: #8e8e93; } .blue { background-color: #007aff; }
+        .label { font-size: 13px; font-weight: 500; opacity: 0.5; }
+
+        .sheet-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 99; }
+        .sheet { position: fixed; bottom: -100%; left: 0; width: 100%; height: 75%; background: var(--sheet-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border-radius: 35px 35px 0 0; padding: 30px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100; border-top: 1px solid rgba(255,255,255,0.1); }
+        .sheet.active { bottom: 0; }
+        .history-item { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 0.5px solid rgba(150,150,150,0.2); font-size: 17px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="quote-container">
+            <p id="quote-text">"انطلق الآن، فالمستقبل يُصنع اللحظة."</p>
+        </div>
+
+        <div class="timer-display" id="display">00:00:00</div>
+        
+        <div class="controls">
+            <button class="btn" onclick="resetTimer()">
+                <div class="circle gray"><svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg></div>
+                <span class="label">تصفير</span>
+            </button>
+            <button class="btn" id="startBtn" onclick="startTimer()">
+                <div class="circle green"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                <span class="label">بدء</span>
+            </button>
+            <button class="btn" id="stopBtn" style="display:none" onclick="stopTimer()">
+                <div class="circle red"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></div>
+                <span class="label">إيقاف</span>
+            </button>
+            <button class="btn" onclick="toggleSheet(true)">
+                <div class="circle blue"><svg viewBox="0 0 24 24"><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg></div>
+                <span class="label">السجل</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="sheet-overlay" id="overlay" onclick="toggleSheet(false)"></div>
+    <div class="sheet" id="sheet">
+        <div style="width:40px; height:5px; background:rgba(150,150,150,0.5); border-radius:10px; margin: 0 auto 25px;"></div>
+        <h2 style="font-weight: 700; margin-bottom: 20px;">إحصائيات الدراسة</h2>
+        <div id="logsList" style="overflow-y:auto; height:70%;"></div>
+        <button onclick="toggleSheet(false)" style="width:100%; padding:18px; border-radius:18px; border:none; background:#007aff; color:white; font-size:17px; font-weight:600; margin-top:20px;">تم</button>
+    </div>
+
+    <script>
+        const quotes = [
+            "النجاح ليس صدفة، بل هو عمل شاق واستمرار.", "تعب اليوم هو راحة الغد.", "كل ساعة تدرسها الآن تقربك من حلمك خطوة.",
+            "لا تتوقف عندما تتعب، توقف عندما تنتهي.", "أنت أقوى مما تعتقد، وأذكى مما تظن.", "القمة تتسع للجميع، لكن لا يصلها إلا المثابرون.",
+            "اجعل من نجاحك صوتاً يخرس كل من شكك فيك.", "التعليم هو السلاح الأقوى لتغيير العالم.", "لا تنتظر الفرصة، بل اصنعها بنفسك.",
+            "مستقبلك يُكتب بما تفعله اليوم، لا غداً.", "الاجتهاد يغلب الموهبة إذا لم تجتهد الموهبة.", "ستشكر نفسك لاحقاً على كل دقيقة صمت وتركيز.",
+            "الدراسة هي جسر العبور من الواقع إلى الحلم.", "الوقت الذي تستمتع بإضاعته ليس وقتاً ضائعاً، لكن وقت الدراسة مقدس.",
+            "كن أنت التغيير الذي تريد أن تراه في العالم.", "السر في المضي قدماً هو البدء.", "عقلك عضلة، كلما درست أكثر كلما أصبحت أقوى.",
+            "لا تخشَ البدايات الضعيفة، بل اخشَ النهايات المتكاسلة.", "العظمة تبدأ بقرار صغير: سأبدأ الآن.", "النجاح هو مجموع جهود صغيرة تتكرر كل يوم.",
+            "إذا كنت تريد أن تكون ناجحاً، فكن مستعداً للتضحية بالراحة.", "كل عقبة هي فرصة لتثبت قوتك.", "أفضل طريقة للتنبؤ بالمستقبل هي اختراعه.",
+            "الفشل هو فرصة للبدء مرة أخرى بذكاء أكبر.", "لا تنظر إلى الساعات، بل افعل ما تفعله: استمر في الحركة.",
+            "أنت لا تدرس للامتحان، أنت تدرس لتكون الشخص الذي حلمت به.", "اجعل شغفك هو محركك الأساسي.", "الانضباط هو الجسر بين الأهداف والإنجازات.",
+            "الصعب ليس مستحيلاً، هو فقط يحتاج وقتاً أطول.", "ستمر الأيام سواء درست أم لا، فاختر كيف تريد أن تنظر للخلف.",
+            "من يطلب العلى سهر الليالي، ومن يطلب النجاح اعتزل الكسل.", "آمن بنفسك وستجد أن نصف الطريق قد انتهى.",
+            "العلم نور، والجهل ظلام، فكن أنت المصباح.", "لا تسمح لأحد أن يخبرك أنك لا تستطيع.", "التركيز هو مفتاح العبقرية.",
+            "كل عظيم كان يوماً ما طالباً مبتدئاً.", "التعلم هو الكنز الذي يتبع صاحبه في كل مكان.", "لا تدرس حتى تنجح، بل ادرس حتى لا يستطيع أحد تجاهلك.",
+            "القوة لا تأتي مما يمكنك فعله، بل مما تغلبت عليه.", "أحلامك تستحق كل لحظة تعب.", "الثبات هو الفرق بين الحلم والواقع.",
+            "بمجرد أن تؤمن أنك تستطيع، فأنت في منتصف الطريق.", "النجاح يبدأ برغبة قوية.", "أفضل استثمار هو الاستثمار في عقلك.",
+            "العلم لا يعطيك بعضه حتى تعطيه كلك.", "كن شغوفاً بالعلم، وستكون النتيجة مبهرة.", "التميز هو أن تفعل الشيء العادي بطريقة غير عادية.",
+            "لا تقارن بدايتك بنهاية الآخرين.", "الصبر مر، لكن ثمرته حلوة.", "العمل الصامت يجلب ضجيج النجاح.",
+            "أنت تقترب، لا تستسلم الآن.", "التحديات هي ما تجعل الحياة مثيرة.", "النجاح رحلة وليس وجهة.",
+            "عقلك هو أقوى أداة تملكها، استخدمها جيداً.", "لا تتبع الأثر، بل اصنع طريقك الخاص.", "كن فخوراً بمدى تقدمك.",
+            "اليوم هو فرصة لتبني الغد الذي تريده.", "النجاح يتطلب شجاعة للتخلي عن الراحة.", "الإبداع يأتي من الجهد المستمر.",
+            "كن الطالب الذي يطمح المعلم للتعامل معه.", "الحياة لا تمنحك ما تريد، بل ما تعمل لأجله.", "العلم يرفع بيوتاً لا عماد لها.",
+            "كلما زادت معرفتك، قل خوفك من المستقبل.", "التفوق هو عادة، وليس فعلاً عابراً.", "كن النسخة الأفضل من نفسك.",
+            "لا يوجد بديل للعمل الجاد.", "الطريق إلى التميز يبدأ بالانضباط.", "أنت تصنع حظك بيدك عبر دراستك.",
+            "السعي هو جوهر النجاح.", "لا تجعل الخوف من الفشل يمنعك من المحاولة.", "استمتع بالعملية، وستأتي النتائج.",
+            "العلم يبني الأمم، والعمل يحميها.", "أنت تحمل في داخلك بذور العظمة.", "لا تقبل بالأقل مما تستحق.",
+            "التعلم المستمر هو سر الشباب الدائم.", "كن مصدر إلهام لنفسك وللآخرين.", "الناجحون لا ينتظرون، بل يسعون.",
+            "الإرادة القوية تذلل الصعاب.", "اجعل دراستك عبادة وستجد فيها المتعة.", "العقل المنفتح هو بداية الحكمة.",
+            "كل يوم هو صفحة جديدة في قصة نجاحك.", "المثابرة هي مفتاح كل الأبواب المغلقة.", "لا تتنازل عن حلمك مهما كانت الظروف.",
+            "التركيز هو أن تقول 'لا' لمئات المشتتات.", "النجاح هو أن تنهض مرة أكثر مما تسقط.", "الثقة بالنفس هي أول أسرار النجاح.",
+            "اعمل بذكاء، وليس فقط بجهد.", "الهدف بدون خطة هو مجرد أمنية.", "الدراسة ليست عبئاً، بل هي امتياز.",
+            "كن ممتناً لقدرتك على التعلم.", "المستقبل ينتمي للذين يؤمنون بجمال أحلامهم.", "الذكاء هو القدرة على التكيف مع التغيير.",
+            "لا توجد حدود لما يمكنك تحقيقه إلا في عقلك.", "كن بطلاً في قصتك الخاصة.", "الإنجاز العظيم يبدأ بخطوة صغيرة.",
+            "أنت هنا لترك أثر، فابدأ بالكتاب والقلم.", "النجاح الحقيقي هو الرضا عما قدمت.", "تحدَّ نفسك اليوم لتكون أفضل غداً.",
+            "كل ساعة دراسة هي استثمار في مستقبلك.", "أنت تستطيع، وسوف تفعل."
+        ];
+
+        function setQuote() {
+            const index = Math.floor(Date.now() / 3600000) % quotes.length;
+            document.getElementById('quote-text').innerText = `"${quotes[index]}"`;
+        }
+
+        // إعدادات العداد (نفس المنطق القوي السابق)
+        const TIME_KEY = 'study_ms_v6';
+        const RUNNING_KEY = 'study_running_v6';
+        const HISTORY_KEY = 'study_history_v6';
+
+        let elapsedTime = parseInt(localStorage.getItem(TIME_KEY)) || 0;
+        let isRunning = localStorage.getItem(RUNNING_KEY) === 'true';
+        let startTime = isRunning ? Date.now() - elapsedTime : 0;
+        let timerInterval;
+
+        function formatTime(ms) {
+            const h = Math.floor(ms / 3600000);
+            const m = Math.floor((ms % 3600000) / 60000);
+            const s = Math.floor((ms % 60000) / 1000);
+            return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        }
+
+        function updateDisplay() {
+            document.getElementById("display").innerText = formatTime(elapsedTime);
+        }
+
+        function startTimer() {
+            isRunning = true;
+            startTime = Date.now() - elapsedTime;
+            timerInterval = setInterval(() => {
+                elapsedTime = Date.now() - startTime;
+                updateDisplay();
+                localStorage.setItem(TIME_KEY, elapsedTime);
+            }, 1000);
+            localStorage.setItem(RUNNING_KEY, 'true');
+            document.getElementById("startBtn").style.display = "none";
+            document.getElementById("stopBtn").style.display = "flex";
+        }
+
+        function stopTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            localStorage.setItem(RUNNING_KEY, 'false');
+            document.getElementById("startBtn").style.display = "flex";
+            document.getElementById("stopBtn").style.display = "none";
+            saveToHistory();
+        }
+
+        function resetTimer() {
+            saveToHistory();
+            clearInterval(timerInterval);
+            elapsedTime = 0;
+            isRunning = false;
+            localStorage.setItem(TIME_KEY, 0);
+            localStorage.setItem(RUNNING_KEY, 'false');
+            updateDisplay();
+            document.getElementById("startBtn").style.display = "flex";
+            document.getElementById("stopBtn").style.display = "none";
+        }
+
+        function saveToHistory() {
+            if (elapsedTime < 1000) return;
+            const date = new Date().toLocaleDateString('ar-EG', { weekday:'long', day:'numeric', month:'long' });
+            let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+            history[date] = formatTime(elapsedTime);
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        }
+
+        function toggleSheet(show) {
+            const sheet = document.getElementById("sheet");
+            const overlay = document.getElementById("overlay");
+            const list = document.getElementById("logsList");
+
+            if (show) {
+                const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+                const entries = Object.entries(history);
+                list.innerHTML = entries.length === 0 ? '<div style="text-align:center; padding:40px; opacity:0.4;">لا توجد سجلات</div>' : 
+                    entries.reverse().map(([date, time]) => `<div class="history-item"><span>${date}</span><strong>${time}</strong></div>`).join('');
+                sheet.classList.add("active");
+                overlay.style.display = "block";
+            } else {
+                sheet.classList.remove("active");
+                overlay.style.display = "none";
+            }
+        }
+
+        // البداية
+        setQuote();
+        updateDisplay();
+        if (isRunning) startTimer();
+        setInterval(setQuote, 600000); // تحديث العبارة كل 10 دقائق للتأكيد
+    </script>
+</body>
+</html>

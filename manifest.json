@@ -1,0 +1,18 @@
+{
+  "short_name": "عداد الدراسة",
+  "name": "عداد الدراسة الاحترافي",
+  "description": "تطبيق عداد دراسة بتصميم آيفون يدعم العمل بدون إنترنت.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3569/3569391.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0a84ff",
+  "background_color": "#000000"
+}
